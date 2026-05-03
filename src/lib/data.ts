@@ -15,5 +15,5 @@ export const PROPERTY = {
     femaleVisitors: "60%",
     catchmentPop: "30M",
   },
-  sections: { /* ... video URLs, copy blocks ... */ }
+  sections: {  }
 }
