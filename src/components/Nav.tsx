@@ -1,7 +1,7 @@
     'use client'
 
 import { useEffect, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { PROPERTY } from '../lib/data'
 
 export default function Nav() {
@@ -99,7 +99,7 @@ export default function Nav() {
                 style={{ position: 'relative', display: 'flex', alignItems: 'center' }}
               >
                 {/* Dot */}
-                <motion.button
+                <m.button
                   onClick={() => scrollTo(item.id)}
                   aria-label={`Go to ${item.label}`}
                   animate={{
@@ -121,7 +121,7 @@ export default function Nav() {
                 />
 
                 {/* Label pill — appears on hover / active */}
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, x: -6 }}
                   whileHover={{ opacity: 1, x: 0 }}
                   animate={isActive ? { opacity: 1, x: 0 } : { opacity: 0, x: -6 }}
@@ -144,7 +144,7 @@ export default function Nav() {
                   }}
                 >
                   {item.label}
-                </motion.div>
+                </m.div>
               </div>
             )
           })}
@@ -161,7 +161,7 @@ export default function Nav() {
             gap:           '6px',
           }}
         >
-          <motion.div
+          <m.div
             style={{
               width:      '1px',
               background: 'linear-gradient(to bottom, transparent, var(--gold-dim))',
@@ -178,14 +178,14 @@ export default function Nav() {
               letterSpacing: '0.1em',
             }}
           >
-            <motion.span
+            <m.span
               key={currentNum}
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
             >
               {currentNum}
-            </motion.span>
+            </m.span>
             /09
           </div>
         </div>
@@ -235,7 +235,7 @@ export default function Nav() {
           }}
         >
           {[0, 1, 2].map(i => (
-            <motion.span
+            <m.span
               key={i}
               animate={
                 menuOpen
@@ -261,7 +261,7 @@ export default function Nav() {
       {/* Mobile menu overlay */}
       <AnimatePresence>
         {menuOpen && (
-          <motion.div
+          <m.div
             key="mobile-menu"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -281,7 +281,7 @@ export default function Nav() {
             }}
           >
             {PROPERTY.nav.map((item, i) => (
-              <motion.button
+              <m.button
                 key={item.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -301,9 +301,9 @@ export default function Nav() {
                 }}
               >
                 {item.label}
-              </motion.button>
+              </m.button>
             ))}
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 

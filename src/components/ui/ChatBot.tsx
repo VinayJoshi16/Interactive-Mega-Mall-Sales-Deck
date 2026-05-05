@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 
 interface Message {
   role:    'user' | 'assistant'
@@ -122,7 +122,7 @@ export default function ChatBot() {
       >
         {/* Pulse ring */}
         {pulse && (
-          <motion.div
+          <m.div
             animate={{ scale: [1, 1.6, 1], opacity: [0.6, 0, 0.6] }}
             transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
             style={{
@@ -135,7 +135,7 @@ export default function ChatBot() {
           />
         )}
 
-        <motion.button
+        <m.button
           onClick={() => {
   if (isOpen) {
     
@@ -164,7 +164,7 @@ export default function ChatBot() {
         >
           <AnimatePresence mode="wait">
             {isOpen ? (
-              <motion.svg
+              <m.svg
                 key="close"
                 initial={{ rotate: -90, opacity: 0 }}
                 animate={{ rotate: 0,   opacity: 1 }}
@@ -175,9 +175,9 @@ export default function ChatBot() {
                 strokeLinecap="round"
               >
                 <path d="M18 6L6 18M6 6l12 12" />
-              </motion.svg>
+              </m.svg>
             ) : (
-              <motion.svg
+              <m.svg
                 key="chat"
                 initial={{ rotate: 90,  opacity: 0 }}
                 animate={{ rotate: 0,   opacity: 1 }}
@@ -188,14 +188,14 @@ export default function ChatBot() {
                 strokeLinecap="round" strokeLinejoin="round"
               >
                 <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
-              </motion.svg>
+              </m.svg>
             )}
           </AnimatePresence>
-        </motion.button>
+        </m.button>
 
         {/* Label tooltip */}
         {!isOpen && !hasOpened && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: 10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 1.5 }}
@@ -218,7 +218,7 @@ export default function ChatBot() {
             }}
           >
             Ask about leasing
-          </motion.div>
+          </m.div>
         )}
       </div>
 
@@ -227,7 +227,7 @@ export default function ChatBot() {
       ══════════════════════════════════════════════════ */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
+          <m.div
             key="chat-panel"
             initial={{ opacity: 0, y: 24, scale: 0.96 }}
             animate={{ opacity: 1, y: 0,  scale: 1    }}
@@ -498,7 +498,7 @@ export default function ChatBot() {
                 Powered by AI · Mall of America
               </span>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 
@@ -525,7 +525,7 @@ function MessageBubble({ message }: { message: Message }) {
   const isUser = message.role === 'user'
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0  }}
       transition={{ duration: 0.3 }}
@@ -555,7 +555,7 @@ function MessageBubble({ message }: { message: Message }) {
       >
         {message.content}
       </div>
-    </motion.div>
+    </m.div>
   )
 }
 
@@ -576,7 +576,7 @@ function TypingIndicator() {
         }}
       >
         {[0, 1, 2].map(i => (
-          <motion.span
+          <m.span
             key={i}
             animate={{ opacity: [0.3, 1, 0.3], y: [0, -3, 0] }}
             transition={{

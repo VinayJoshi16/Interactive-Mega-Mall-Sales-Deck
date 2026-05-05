@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { PROPERTY } from '../../lib/data'
 import CTAButton from '../ui/CTAButton'
 import {
@@ -34,7 +34,7 @@ export default function CTA() {
         }}
       >
         <div className="section-inner">
-          <motion.div
+          <m.div
             className="section-eyebrow"
             variants={fadeUp}
             initial="hidden"
@@ -42,9 +42,9 @@ export default function CTA() {
             viewport={viewportConfig}
           >
             {sponsorship.eyebrow}
-          </motion.div>
+          </m.div>
 
-          <motion.h2
+          <m.h2
             className="section-h2"
             variants={fadeUp}
             initial="hidden"
@@ -64,9 +64,9 @@ export default function CTA() {
                 lead
               )
             })()}
-          </motion.h2>
+          </m.h2>
 
-          <motion.p
+          <m.p
             className="section-body"
             variants={fadeUp}
             initial="hidden"
@@ -76,9 +76,9 @@ export default function CTA() {
             style={{ maxWidth: '720px' }}
           >
             {sponsorship.body}
-          </motion.p>
+          </m.p>
 
-          <motion.div
+          <m.div
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
@@ -95,9 +95,9 @@ export default function CTA() {
             }}
           >
             {sponsorship.audienceTitle}
-          </motion.div>
+          </m.div>
 
-          <motion.div
+          <m.div
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
@@ -144,9 +144,9 @@ export default function CTA() {
                 </div>
               </div>
             ))}
-          </motion.div>
+          </m.div>
 
-          <motion.div
+          <m.div
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
@@ -176,9 +176,9 @@ export default function CTA() {
                 background: 'linear-gradient(to top, rgba(8,8,8,0.85) 0%, transparent 55%)',
               }}
             />
-          </motion.div>
+          </m.div>
 
-          <motion.div
+          <m.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
@@ -191,7 +191,7 @@ export default function CTA() {
             }}
           >
             {sponsorship.tiers.map((tier, i) => (
-              <motion.div
+              <m.div
                 key={tier.name}
                 variants={fadeLeft}
                 transition={{ delay: i * 0.08 }}
@@ -253,11 +253,11 @@ export default function CTA() {
                 >
                   {tier.price}
                 </div>
-              </motion.div>
+              </m.div>
             ))}
-          </motion.div>
+          </m.div>
 
-          <motion.div
+          <m.div 
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
@@ -271,7 +271,7 @@ export default function CTA() {
               variant="primary"
               size="lg"
             />
-          </motion.div>
+          </m.div>
         </div>
 
         <style>{`
@@ -299,7 +299,7 @@ export default function CTA() {
         }}
       >
         <div className="section-inner">
-          <motion.div
+          <m.div
             className="section-eyebrow"
             variants={fadeUp}
             initial="hidden"
@@ -307,9 +307,9 @@ export default function CTA() {
             viewport={viewportConfig}
           >
             {contact.eyebrow}
-          </motion.div>
+          </m.div>
 
-          <motion.h2
+          <m.h2
             className="section-h2"
             variants={fadeUp}
             initial="hidden"
@@ -329,9 +329,9 @@ export default function CTA() {
                 lead
               )
             })()}
-          </motion.h2>
+          </m.h2>
 
-          <motion.p
+          <m.p
             className="section-body"
             variants={fadeUp}
             initial="hidden"
@@ -341,9 +341,9 @@ export default function CTA() {
             style={{ maxWidth: '720px', marginBottom: '60px' }}
           >
             {contact.body}
-          </motion.p>
+          </m.p>
 
-          <motion.div
+          <m.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
@@ -355,7 +355,7 @@ export default function CTA() {
             }}
           >
             {contact.paths.map((path, i) => (
-              <motion.div
+              <m.div
                 key={path.num}
                 variants={fadeLeft}
                 transition={{ delay: i * 0.1 }}
@@ -410,9 +410,9 @@ export default function CTA() {
                   size="md"
                   fullWidth
                 />
-              </motion.div>
+              </m.div>
             ))}
-          </motion.div>
+          </m.div>
         </div>
 
         <style>{`

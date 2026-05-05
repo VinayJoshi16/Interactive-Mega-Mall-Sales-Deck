@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { fadeIn, viewportConfig } from '../../lib/animations'
 
 interface VideoPlayerProps {
@@ -69,7 +69,7 @@ export default function VideoPlayer({
     : `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0&modestbranding=1`
 
   return (
-    <motion.div
+    <m.div
       ref={wrapperRef}
       variants={fadeIn}
       initial="hidden"
@@ -90,7 +90,7 @@ export default function VideoPlayer({
       {/* ── Poster image (shown before play) ────────────── */}
       <AnimatePresence>
         {!isPlaying && posterImage && (
-          <motion.img
+          <m.img
             key="poster"
             src={posterImage}
             alt={title}
@@ -128,7 +128,7 @@ export default function VideoPlayer({
 
       {/* ── Dark overlay ────────────────────────────────── */}
       {!isPlaying && (
-        <div
+        <m.div
           style={{
             position:   'absolute',
             inset:      0,
@@ -140,7 +140,7 @@ export default function VideoPlayer({
 
       {/* ── Play button ─────────────────────────────────── */}
       {!isPlaying && (
-        <motion.button
+        <m.button
           onClick={() => setIsPlaying(true)}
           animate={{ scale: isHovered ? 1.1 : 1 }}
           transition={{ duration: 0.3 }}
@@ -166,7 +166,7 @@ export default function VideoPlayer({
           }}
         >
           <PlayIcon size={22} />
-        </motion.button>
+        </m.button>
       )}
 
       {/* ── Tag + Caption overlay (bottom-left) ─────────── */}
@@ -212,7 +212,7 @@ export default function VideoPlayer({
       )}
 
       {/* ── Hover border glow ────────────────────────────── */}
-      <motion.div
+      <m.div
         animate={{ opacity: isHovered ? 1 : 0 }}
         transition={{ duration: 0.3 }}
         style={{
@@ -223,6 +223,6 @@ export default function VideoPlayer({
           pointerEvents: 'none',
         }}
       />
-    </motion.div>
+    </m.div>
   )
 }

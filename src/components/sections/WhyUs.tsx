@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useRef } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import Image from 'next/image'
 import { PROPERTY } from '../../lib/data'
 import StatCard from '../ui/StatCard'
@@ -49,7 +49,7 @@ export default function WhyUs() {
       <div className="section-inner">
 
         {/* ── Eyebrow ──────────────────────────────────────── */}
-        <motion.div
+        <m.div
           className="section-eyebrow reveal"
           variants={fadeUp}
           initial="hidden"
@@ -57,10 +57,10 @@ export default function WhyUs() {
           viewport={viewportConfig}
         >
           {whyUs.eyebrow}
-        </motion.div>
+        </m.div>
 
         {/* ── Headline ─────────────────────────────────────── */}
-        <motion.h2
+        <m.h2
           className="section-h2"
           variants={fadeUp}
           initial="hidden"
@@ -73,7 +73,7 @@ export default function WhyUs() {
           <em>Mall of America</em>
           <br />
           is in a class of its own.
-        </motion.h2>
+        </m.h2>
 
         {/* ══════════════════════════════════════════════════
             TWO-COLUMN GRID
@@ -90,7 +90,7 @@ export default function WhyUs() {
           {/* ── LEFT COLUMN ──────────────────────────────── */}
           <div>
             {/* Body copy */}
-            <motion.p
+            <m.p
               className="section-body"
               variants={fadeRight}
               initial="hidden"
@@ -99,10 +99,10 @@ export default function WhyUs() {
               transition={{ delay: 0.2 }}
             >
               {whyUs.body}
-            </motion.p>
+            </m.p>
 
             {/* Stat cards 2×2 grid */}
-            <motion.div
+            <m.div
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
@@ -122,10 +122,10 @@ export default function WhyUs() {
                   delay={i * 0.1}
                 />
               ))}
-            </motion.div>
+            </m.div>
 
             {/* Demographic bars */}
-            <motion.div
+            <m.div
               ref={barsRef}
               variants={fadeUp}
               initial="hidden"
@@ -192,11 +192,11 @@ export default function WhyUs() {
                   </div>
                 </div>
               ))}
-            </motion.div>
+            </m.div>
           </div>
 
           {/* ── RIGHT COLUMN — image stack ───────────────── */}
-          <motion.div
+          <m.div
             variants={fadeLeft}
             initial="hidden"
             whileInView="visible"
@@ -248,7 +248,7 @@ export default function WhyUs() {
             </div>
 
             {/* Gold badge */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={viewportConfig}
@@ -287,10 +287,10 @@ export default function WhyUs() {
               >
                 {whyUs.badge.label}
               </span>
-            </motion.div>
+            </m.div>
 
             {/* Decorative corner line */}
-            <motion.div
+            <m.div
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={viewportConfig}
@@ -305,7 +305,7 @@ export default function WhyUs() {
                 transformOrigin: 'left',
               }}
             />
-          </motion.div>
+          </m.div>
         </div>
       </div>
 

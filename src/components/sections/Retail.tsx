@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { PROPERTY } from '../../lib/data'
 import CTAButton from '../ui/CTAButton'
 import {
@@ -29,7 +29,7 @@ export default function Retail() {
       <div className="section-inner">
 
         {/* ── Eyebrow ──────────────────────────────────────── */}
-        <motion.div
+        <m.div
           className="section-eyebrow"
           variants={fadeUp}
           initial="hidden"
@@ -37,10 +37,10 @@ export default function Retail() {
           viewport={viewportConfig}
         >
           {retail.eyebrow}
-        </motion.div>
+        </m.div>
 
         {/* ── Headline ─────────────────────────────────────── */}
-        <motion.h2
+        <m.h2
           className="section-h2"
           variants={fadeUp}
           initial="hidden"
@@ -50,10 +50,10 @@ export default function Retail() {
         >
           520 stores.{' '}
           <em>One address.</em>
-        </motion.h2>
+        </m.h2>
 
         {/* ── Body ─────────────────────────────────────────── */}
-        <motion.p
+        <m.p
           className="section-body"
           variants={fadeUp}
           initial="hidden"
@@ -62,12 +62,12 @@ export default function Retail() {
           transition={{ delay: 0.2 }}
         >
           {retail.body}
-        </motion.p>
+        </m.p>
 
         {/* ══════════════════════════════════════════════════
             MARQUEE TENANT STRIP
         ══════════════════════════════════════════════════ */}
-        <motion.div
+        <m.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
@@ -143,12 +143,12 @@ export default function Retail() {
               </span>
             ))}
           </div>
-        </motion.div>
+        </m.div>
 
         {/* ══════════════════════════════════════════════════
             CATEGORY CARDS
         ══════════════════════════════════════════════════ */}
-        <motion.div
+        <m.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -163,12 +163,12 @@ export default function Retail() {
           {retail.categories.map((cat, i) => (
             <RetailCard key={cat.num} cat={cat} delay={i * 0.12} />
           ))}
-        </motion.div>
+        </m.div>
 
         {/* ══════════════════════════════════════════════════
             BOTTOM LEASING CTA ROW
         ══════════════════════════════════════════════════ */}
-        <motion.div
+        <m.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
@@ -215,7 +215,7 @@ export default function Retail() {
             variant="primary"
             size="lg"
           />
-        </motion.div>
+        </m.div>
 
       </div>
 
@@ -260,7 +260,7 @@ function RetailCard({ cat, delay = 0 }: RetailCardProps) {
   const cardRef = useRef<HTMLDivElement>(null)
 
   return (
-    <motion.div
+    <m.div
       ref={cardRef}
       variants={fadeLeft}
       transition={{ delay }}
@@ -336,6 +336,6 @@ function RetailCard({ cat, delay = 0 }: RetailCardProps) {
         variant="ghost"
         arrow
       />
-    </motion.div>
+    </m.div>
   )
 }

@@ -2,7 +2,7 @@
 'use client'
 
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { PROPERTY } from '../../lib/data'
 import CTAButton from '../ui/CTAButton'
 import {
@@ -95,7 +95,7 @@ export default function Luxury() {
           }}
         >
           {/* Eyebrow */}
-          <motion.div
+          <m.div
             className="section-eyebrow"
             variants={fadeUp}
             initial="hidden"
@@ -104,10 +104,10 @@ export default function Luxury() {
             style={{ color: 'var(--gold2)' }}
           >
             {luxury.eyebrow}
-          </motion.div>
+          </m.div>
 
           {/* Quote */}
-          <motion.blockquote
+          <m.blockquote
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
@@ -135,10 +135,10 @@ export default function Luxury() {
               world's finest.
             </em>
             "
-          </motion.blockquote>
+          </m.blockquote>
 
           {/* Body */}
-          <motion.p
+          <m.p
             className="section-body"
             variants={fadeUp}
             initial="hidden"
@@ -147,10 +147,10 @@ export default function Luxury() {
             transition={{ delay: 0.25 }}
           >
             {luxury.body}
-          </motion.p>
+          </m.p>
 
           {/* CTA */}
-          <motion.div
+          <m.div
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
@@ -164,11 +164,11 @@ export default function Luxury() {
               variant="primary"
               size="md"
             />
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Decorative vertical rule */}
-        <motion.div
+        <m.div
           initial={{ scaleY: 0 }}
           whileInView={{ scaleY: 1 }}
           viewport={viewportConfig}
@@ -194,7 +194,7 @@ export default function Luxury() {
         style={{ paddingTop: '60px', paddingBottom: '60px' }}
       >
         {/* Section label */}
-        <motion.div
+        <m.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
@@ -221,10 +221,10 @@ export default function Luxury() {
             }}
           />
           Anchored by the world's most coveted names
-        </motion.div>
+        </m.div>
 
         {/* Brand name strip */}
-        <motion.div
+        <m.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -242,10 +242,10 @@ export default function Luxury() {
               isLast={i === luxury.brands.length - 1}
             />
           ))}
-        </motion.div>
+        </m.div>
 
         {/* Bottom stats row */}
-        <motion.div
+        <m.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
@@ -297,7 +297,7 @@ export default function Luxury() {
               </div>
             </div>
           ))}
-        </motion.div>
+        </m.div>
       </div>
 
       {/* ── Responsive ───────────────────────────────────────── */}
@@ -338,7 +338,7 @@ interface LuxuryBrandProps {
 
 function LuxuryBrand({ name, isLast }: LuxuryBrandProps) {
   return (
-    <motion.div
+    <m.div
       variants={fadeRight}
       whileHover={{
         color:      'var(--gold2)',
@@ -359,6 +359,6 @@ function LuxuryBrand({ name, isLast }: LuxuryBrandProps) {
       }}
     >
       {name}
-    </motion.div>
+    </m.div>
   )
 }

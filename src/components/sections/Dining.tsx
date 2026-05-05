@@ -1,8 +1,8 @@
-// src/components/sections/Dining.tsx
+
 'use client'
 
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { PROPERTY } from '../../lib/data'
 import CTAButton from '../ui/CTAButton'
 import {
@@ -28,7 +28,7 @@ export default function Dining() {
       <div className="section-inner">
 
         {/* ── Eyebrow ──────────────────────────────────────── */}
-        <motion.div
+        <m.div
           className="section-eyebrow"
           variants={fadeUp}
           initial="hidden"
@@ -36,10 +36,10 @@ export default function Dining() {
           viewport={viewportConfig}
         >
           {dining.eyebrow}
-        </motion.div>
+        </m.div>
 
         {/* ── Headline ─────────────────────────────────────── */}
-        <motion.h2
+        <m.h2
           className="section-h2"
           variants={fadeUp}
           initial="hidden"
@@ -49,7 +49,7 @@ export default function Dining() {
         >
           Food as a <em>destination</em>,<br />
           not an afterthought.
-        </motion.h2>
+        </m.h2>
 
         {/* ══════════════════════════════════════════════════
             TWO-COLUMN LAYOUT
@@ -64,7 +64,7 @@ export default function Dining() {
           }}
         >
           {/* ── LEFT — image ─────────────────────────────── */}
-          <motion.div
+          <m.div
             variants={fadeRight}
             initial="hidden"
             whileInView="visible"
@@ -106,7 +106,7 @@ export default function Dining() {
             </div>
 
             {/* Floating stat badge */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: 20, y: 20 }}
               whileInView={{ opacity: 1, x: 0, y: 0 }}
               viewport={viewportConfig}
@@ -142,10 +142,10 @@ export default function Dining() {
               >
                 Dining options
               </div>
-            </motion.div>
+            </m.div>
 
             {/* Decorative border frame */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={viewportConfig}
@@ -161,10 +161,10 @@ export default function Dining() {
                 pointerEvents: 'none',
               }}
             />
-          </motion.div>
+          </m.div>
 
           {/* ── RIGHT — content ──────────────────────────── */}
-          <motion.div
+          <m.div
             variants={fadeLeft}
             initial="hidden"
             whileInView="visible"
@@ -180,7 +180,7 @@ export default function Dining() {
             </p>
 
             {/* Highlights list */}
-            <motion.div
+            <m.div
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
@@ -199,10 +199,10 @@ export default function Dining() {
                   isLast={i === dining.highlights.length - 1}
                 />
               ))}
-            </motion.div>
+            </m.div>
 
             {/* Stat row */}
-            <motion.div
+            <m.div
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
@@ -251,10 +251,10 @@ export default function Dining() {
                   </span>
                 </div>
               ))}
-            </motion.div>
+            </m.div>
 
             {/* CTA */}
-            <motion.div
+            <m.div
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
@@ -268,14 +268,14 @@ export default function Dining() {
                 variant="secondary"
                 size="md"
               />
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         </div>
 
         {/* ══════════════════════════════════════════════════
             BOTTOM PULL QUOTE
         ══════════════════════════════════════════════════ */}
-        <motion.div
+        <m.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
@@ -346,7 +346,7 @@ export default function Dining() {
             </span>{' '}
             and spend significantly more across every retail category.
           </div>
-        </motion.div>
+        </m.div>
 
       </div>
 
@@ -392,7 +392,7 @@ interface DiningHighlightProps {
 
 function DiningHighlight({ item, isLast }: DiningHighlightProps) {
   return (
-    <motion.div
+    <m.div
       variants={fadeUp}
       whileHover={{ paddingLeft: '16px' }}
       style={{
@@ -444,6 +444,6 @@ function DiningHighlight({ item, isLast }: DiningHighlightProps) {
           {item.body}
         </div>
       </div>
-    </motion.div>
+    </m.div>
   )
 }

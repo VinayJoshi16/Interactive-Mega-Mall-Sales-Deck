@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 
 interface CTAButtonProps {
   label: string
@@ -79,7 +79,7 @@ export default function CTAButton({
   const isAnchor   = href.startsWith('#')
 
   const Overlay = variant === 'primary' ? (
-    <motion.span
+    <m.span
       aria-hidden
       initial={{ x: '-101%' }}
       whileHover={{ x: '0%' }}
@@ -111,7 +111,7 @@ export default function CTAButton({
   // ─── Ghost variant ───────────────────────────────────────
   if (variant === 'ghost') {
     return (
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -132,12 +132,12 @@ export default function CTAButton({
             {Inner}
           </Link>
         )}
-      </motion.div>
+      </m.div>
     )
   }
 
   // ─── Primary / Secondary ─────────────────────────────────
-  const motionProps = {
+  const mProps = {
     initial:     { opacity: 0, y: 16 },
     whileInView: { opacity: 1, y: 0 },
     viewport:    { once: true } as const,
@@ -164,11 +164,11 @@ export default function CTAButton({
   )
 
   return (
-    <motion.div
-      {...motionProps}
+    <m.div
+      {...mProps}
       style={{ display: fullWidth ? 'block' : 'inline-block' }}
     >
       {content}
-    </motion.div>
+    </m.div>
   )
 }

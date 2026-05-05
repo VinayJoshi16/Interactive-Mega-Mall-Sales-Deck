@@ -2,13 +2,11 @@
 
 import Image from 'next/image'
 import { useRef, useState } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { PROPERTY } from '../../lib/data'
 import CTAButton from '../ui/CTAButton'
 import {
   fadeUp,
-  fadeLeft,
-  fadeRight,
   staggerContainer,
   viewportConfig,
 } from '../../lib/animations'
@@ -31,7 +29,7 @@ export default function Events() {
         {/* ══════════════════════════════════════════════════
             FULL-WIDTH VIDEO HERO
         ══════════════════════════════════════════════════ */}
-        <motion.div
+        <m.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
@@ -107,13 +105,13 @@ export default function Events() {
               </em>
             </h2>
           </div>
-        </motion.div>
+        </m.div>
 
         {/* ══════════════════════════════════════════════════
             SECTION HEADLINE + BODY
         ══════════════════════════════════════════════════ */}
         <div style={{ paddingTop: '80px' }}>
-          <motion.div
+          <m.div
             className="section-eyebrow"
             variants={fadeUp}
             initial="hidden"
@@ -121,9 +119,9 @@ export default function Events() {
             viewport={viewportConfig}
           >
             Event & Venue Capabilities
-          </motion.div>
+          </m.div>
 
-          <motion.h2
+          <m.h2
             className="section-h2"
             variants={fadeUp}
             initial="hidden"
@@ -134,9 +132,9 @@ export default function Events() {
           >
             Book the stage that<br />
             America <em>watches.</em>
-          </motion.h2>
+          </m.h2>
 
-          <motion.p
+          <m.p
             className="section-body"
             variants={fadeUp}
             initial="hidden"
@@ -145,13 +143,13 @@ export default function Events() {
             transition={{ delay: 0.2 }}
           >
             {events.body}
-          </motion.p>
+          </m.p>
         </div>
 
         {/* ══════════════════════════════════════════════════
             VENUE CARDS
         ══════════════════════════════════════════════════ */}
-        <motion.div
+        <m.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -166,12 +164,12 @@ export default function Events() {
           {events.venues.map((venue, i) => (
             <VenueCard key={venue.name} venue={venue} delay={i * 0.12} />
           ))}
-        </motion.div>
+        </m.div>
 
         {/* ══════════════════════════════════════════════════
             EVENT CAPABILITIES GRID
         ══════════════════════════════════════════════════ */}
-        <motion.div
+        <m.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
@@ -216,12 +214,12 @@ export default function Events() {
               </span>
             </div>
           ))}
-        </motion.div>
+        </m.div>
 
         {/* ══════════════════════════════════════════════════
             PAST EVENTS STRIP
         ══════════════════════════════════════════════════ */}
-        <motion.div
+        <m.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
@@ -263,12 +261,12 @@ export default function Events() {
               <PastEventCard key={i} event={event} />
             ))}
           </div>
-        </motion.div>
+        </m.div>
 
         {/* ══════════════════════════════════════════════════
             BOTTOM CTA
         ══════════════════════════════════════════════════ */}
-        <motion.div
+        <m.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
@@ -318,7 +316,7 @@ export default function Events() {
             variant="primary"
             size="lg"
           />
-        </motion.div>
+        </m.div>
 
       </div>
 
@@ -360,7 +358,7 @@ function EventsPlayButton({ youtubeId }: { youtubeId: string }) {
 
   return (
     <>
-      <motion.button
+      <m.button
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={() => setIsOpen(true)}
@@ -397,7 +395,7 @@ function EventsPlayButton({ youtubeId }: { youtubeId: string }) {
         >
           <path d="M8 5v14l11-7z" />
         </svg>
-      </motion.button>
+      </m.button>
 
       {/* Inline modal */}
       {isOpen && (
@@ -474,7 +472,7 @@ interface VenueCardProps {
 
 function VenueCard({ venue, delay = 0 }: VenueCardProps) {
   return (
-    <motion.div
+    <m.div
       variants={fadeUp}
       transition={{ delay }}
       whileHover={{ background: 'var(--dark3)' }}
@@ -488,7 +486,7 @@ function VenueCard({ venue, delay = 0 }: VenueCardProps) {
       }}
     >
       {/* Top gold rule on hover */}
-      <motion.div
+      <m.div
         initial={{ scaleX: 0 }}
         whileHover={{ scaleX: 1 }}
         style={{
@@ -566,7 +564,7 @@ function VenueCard({ venue, delay = 0 }: VenueCardProps) {
         variant="ghost"
         arrow
       />
-    </motion.div>
+    </m.div>
   )
 }
 
@@ -583,7 +581,7 @@ interface PastEventCardProps {
 
 function PastEventCard({ event }: PastEventCardProps) {
   return (
-    <motion.div
+    <m.div
       whileHover={{ borderColor: 'rgba(200,169,110,0.28)' }}
       style={{
         background:  'var(--dark2)',
@@ -628,6 +626,6 @@ function PastEventCard({ event }: PastEventCardProps) {
       >
         {event.attendance}
       </div>
-    </motion.div>
+    </m.div>
   )
 }

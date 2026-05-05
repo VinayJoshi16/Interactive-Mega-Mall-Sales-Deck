@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { PROPERTY } from '../../lib/data'
 import VideoPlayer from '../ui/VideoPlayer'
 import {
@@ -27,7 +27,7 @@ export default function Entertainment() {
       <div className="section-inner">
 
         {/* ── Eyebrow ──────────────────────────────────────── */}
-        <motion.div
+        <m.div
           className="section-eyebrow"
           variants={fadeUp}
           initial="hidden"
@@ -35,10 +35,10 @@ export default function Entertainment() {
           viewport={viewportConfig}
         >
           {entertainment.eyebrow}
-        </motion.div>
+        </m.div>
 
         {/* ── Headline ─────────────────────────────────────── */}
-        <motion.h2
+        <m.h2
           className="section-h2"
           variants={fadeUp}
           initial="hidden"
@@ -48,10 +48,10 @@ export default function Entertainment() {
         >
           The only mall in America<br />
           with a <em>theme park inside.</em>
-        </motion.h2>
+        </m.h2>
 
         {/* ── Body ─────────────────────────────────────────── */}
-        <motion.p
+        <m.p
           className="section-body"
           variants={fadeUp}
           initial="hidden"
@@ -60,7 +60,7 @@ export default function Entertainment() {
           transition={{ delay: 0.2 }}
         >
           {entertainment.body}
-        </motion.p>
+        </m.p>
 
         {/* ══════════════════════════════════════════════════
             MAIN VIDEO ROW
@@ -74,7 +74,7 @@ export default function Entertainment() {
           }}
         >
           {/* ── Main video player ────────────────────────── */}
-          <motion.div
+          <m.div
             variants={fadeRight}
             initial="hidden"
             whileInView="visible"
@@ -90,10 +90,10 @@ export default function Entertainment() {
               height="480px"
               showOverlay
             />
-          </motion.div>
+          </m.div>
 
           {/* ── Side thumbnails ──────────────────────────── */}
-          <motion.div
+          <m.div
             variants={fadeLeft}
             initial="hidden"
             whileInView="visible"
@@ -119,13 +119,13 @@ export default function Entertainment() {
               tag="Live Events"
               caption="400+ Events Annually"
             />
-          </motion.div>
+          </m.div>
         </div>
 
         {/* ══════════════════════════════════════════════════
             YOUTUBE SHORTS STRIP
         ══════════════════════════════════════════════════ */}
-        <motion.div
+        <m.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
@@ -142,12 +142,12 @@ export default function Entertainment() {
           {videos.shorts.map((short) => (
             <ShortCard key={short.youtubeId} short={short} />
           ))}
-        </motion.div>
+        </m.div>
 
         {/* ══════════════════════════════════════════════════
             ATTRACTION CARDS
         ══════════════════════════════════════════════════ */}
-        <motion.div
+        <m.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -162,12 +162,12 @@ export default function Entertainment() {
           {entertainment.attractions.map((attr, i) => (
             <AttractionCard key={attr.title} attr={attr} delay={i * 0.1} />
           ))}
-        </motion.div>
+        </m.div>
 
         {/* ══════════════════════════════════════════════════
             BOTTOM IMPACT LINE
         ══════════════════════════════════════════════════ */}
-        <motion.div
+        <m.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
@@ -266,7 +266,7 @@ export default function Entertainment() {
               </div>
             ))}
           </div>
-        </motion.div>
+        </m.div>
 
       </div>
 
@@ -497,7 +497,7 @@ interface AttractionCardProps {
 
 function AttractionCard({ attr, delay = 0 }: AttractionCardProps) {
   return (
-    <motion.div
+    <m.div
       variants={fadeUp}
       transition={{ delay }}
       whileHover={{
@@ -563,6 +563,6 @@ function AttractionCard({ attr, delay = 0 }: AttractionCardProps) {
       >
         {attr.body}
       </p>
-    </motion.div>
+    </m.div>
   )
 }

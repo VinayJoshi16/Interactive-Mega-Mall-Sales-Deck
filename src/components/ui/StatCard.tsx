@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { fadeUp, viewportConfig } from '../../lib/animations'
 
 interface StatCardProps {
@@ -90,7 +90,7 @@ export default function StatCard({
   }
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       variants={fadeUp}
       initial="hidden"
@@ -137,6 +137,6 @@ export default function StatCard({
       >
         {label}
       </div>
-    </motion.div>
+    </m.div>
   )
 }

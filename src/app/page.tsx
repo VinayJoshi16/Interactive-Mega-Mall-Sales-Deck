@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic'
 import Nav  from '@/components/Nav'
 import Hero from '@/components/sections/Hero'
 import ChatBot from '@/components/ui/ChatBot'
+import { LazyMotion, domAnimation } from 'framer-motion'
 
 // Lazy load everything below the fold
 const WhyUs        = dynamic(() => import('@/components/sections/WhyUs'))
@@ -104,10 +105,11 @@ export default function Page() {
   }, [])
 
   return (
-    <>
-      <div ref={cursorRef}     className="cursor"      aria-hidden="true" />
-      <div ref={cursorRingRef} className="cursor-ring" aria-hidden="true" />
-      <Nav />
+  <>
+    <div ref={cursorRef}     className="cursor"      aria-hidden="true" />
+    <div ref={cursorRingRef} className="cursor-ring" aria-hidden="true" />
+    <Nav />
+    <LazyMotion features={domAnimation}>
       <main style={{ marginLeft: 'var(--nav-w)', position: 'relative' }}>
         <Hero />
         <WhyUs />
@@ -118,7 +120,8 @@ export default function Page() {
         <Events />
         <CTA />
       </main>
-      <ChatBot />
-    </>
-  )
+    </LazyMotion>
+    <ChatBot />
+  </>
+)
 }
