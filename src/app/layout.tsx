@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import '../styles/globals.css'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://your-project.vercel.app'),
   title: 'Mall of America — Retail, Events & Partnership Opportunities',
   description:
     'America\'s largest destination. 40M+ annual visitors, 520+ stores, world-class events. Explore leasing, sponsorship, and venue opportunities at Mall of America.',
