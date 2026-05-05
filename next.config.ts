@@ -7,11 +7,8 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: 31536000,
     remotePatterns: [],
   },
-  compress: true,
+  compress:        true,
   poweredByHeader: false,
-  experimental: {
-    optimizeCss: true,
-  },
   headers: async () => [
     {
       source: '/(.*)',
