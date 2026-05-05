@@ -197,7 +197,6 @@ export default function Hero() {
               }}
             >
               <motion.span
-                display="inline-block"
                 initial={{ y: '105%', opacity: 0 }}
                 animate={mounted ? { y: '0%', opacity: 1 } : {}}
                 transition={{
