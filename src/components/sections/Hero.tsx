@@ -1,28 +1,35 @@
+// src/components/sections/Hero.tsx
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { PROPERTY } from '../../lib/data'
-import CTAButton from '../ui/CTAButton'
+import Image from 'next/image'
+import { PROPERTY } from '@/lib/data'
+import CTAButton from '@/components/ui/CTAButton'
 
 export default function Hero() {
-  const sectionRef              = useRef<HTMLElement>(null)
-  const [mounted, setMounted]   = useState(false)
-  const { scrollY }             = useScroll()
+  const sectionRef            = useRef<HTMLElement>(null)
+  const [mounted, setMounted] = useState(false)
+  const [videoActive, setVideoActive] = useState(false)
+  const { scrollY }           = useScroll()
 
-  // Fade out scroll indicator after user scrolls
   const scrollOpacity = useTransform(scrollY, [0, 200], [1, 0])
-
-  // Parallax on hero content
-  const contentY = useTransform(scrollY, [0, 600], [0, 120])
+  const contentY      = useTransform(scrollY, [0, 600], [0, 120])
 
   useEffect(() => {
-    // Small delay so fonts load before animating
     const t = setTimeout(() => setMounted(true), 100)
     return () => clearTimeout(t)
   }, [])
 
-  const { hero, videos } = PROPERTY
+  // ─── Load video only after page is fully interactive ─────
+  useEffect(() => {
+    if (!mounted) return
+    // Delay iframe load by 3s — lets LCP image render first
+    const t = setTimeout(() => setVideoActive(true), 3000)
+    return () => clearTimeout(t)
+  }, [mounted])
+
+  const { hero, videos, images } = PROPERTY
 
   return (
     <section
@@ -38,7 +45,7 @@ export default function Hero() {
       }}
     >
       {/* ══════════════════════════════════════════
-          BACKGROUND VIDEO
+          BACKGROUND — image first, video after 3s
       ══════════════════════════════════════════ */}
       <div
         style={{
@@ -48,30 +55,57 @@ export default function Hero() {
           zIndex:   0,
         }}
       >
-        <iframe
-          src={`https://www.youtube.com/embed/${videos.heroBg.youtubeId}?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playlist=${videos.heroBg.youtubeId}`}
-          title={videos.heroBg.title}
-          allow="autoplay; encrypted-media"
-          allowFullScreen
-          style={{
-            position:   'absolute',
-            top:        '50%',
-            left:       '50%',
-            width:      '177.78vh',
-            height:     '100vh',
-            minWidth:   '100%',
-            minHeight:  '56.25vw',
-            transform:  'translate(-50%, -50%)',
-            pointerEvents: 'none',
-            border:     'none',
-          }}
-        />
+        {/* LCP image — loads immediately, high priority */}
+        {!videoActive && (
+          <Image
+            src={images.hero}
+            alt="Mall of America"
+            fill
+            priority
+            sizes="100vw"
+            style={{
+              objectFit:      'cover',
+              objectPosition: 'center',
+            }}
+          />
+        )}
+
+        {/* YouTube iframe — only loads after 3s delay */}
+        {videoActive && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.2 }}
+            style={{
+              position: 'absolute',
+              inset:    0,
+            }}
+          >
+            <iframe
+              src={`https://www.youtube.com/embed/${videos.heroBg.youtubeId}?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playlist=${videos.heroBg.youtubeId}`}
+              title={videos.heroBg.title}
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+              style={{
+                position:      'absolute',
+                top:           '50%',
+                left:          '50%',
+                width:         '177.78vh',
+                height:        '100vh',
+                minWidth:      '100%',
+                minHeight:     '56.25vw',
+                transform:     'translate(-50%, -50%)',
+                pointerEvents: 'none',
+                border:        'none',
+              }}
+            />
+          </motion.div>
+        )}
       </div>
 
       {/* ══════════════════════════════════════════
           OVERLAYS
       ══════════════════════════════════════════ */}
-      {/* Primary gradient overlay */}
       <div
         style={{
           position:   'absolute',
@@ -86,7 +120,6 @@ export default function Hero() {
           zIndex: 1,
         }}
       />
-      {/* Bottom fade to section below */}
       <div
         style={{
           position:   'absolute',
@@ -101,12 +134,12 @@ export default function Hero() {
       ══════════════════════════════════════════ */}
       <motion.div
         style={{
-          position:  'relative',
-          zIndex:    3,
-          padding:   '0 80px',
-          maxWidth:  '1000px',
-          width:     '100%',
-          y:         contentY,
+          position: 'relative',
+          zIndex:   3,
+          padding:  '0 80px',
+          maxWidth: '1000px',
+          width:    '100%',
+          y:        contentY,
         }}
       >
         {/* Eyebrow */}
@@ -142,7 +175,7 @@ export default function Hero() {
           {hero.eyebrow}
         </motion.div>
 
-        {/* Headline — word by word reveal */}
+        {/* Headline */}
         <h1
           style={{
             fontFamily:    'var(--serif)',
@@ -158,8 +191,8 @@ export default function Hero() {
             <span
               key={i}
               style={{
-                display:  'inline-block',
-                overflow: 'hidden',
+                display:     'inline-block',
+                overflow:    'hidden',
                 marginRight: i < hero.words.length - 1 ? '0.25em' : 0,
               }}
             >
@@ -173,9 +206,9 @@ export default function Hero() {
                   ease:     [0.22, 1, 0.36, 1],
                 }}
                 style={{
-                  display:    'inline-block',
-                  fontStyle:  i === hero.accentIndex ? 'italic' : 'normal',
-                  color:      i === hero.accentIndex ? 'var(--gold2)' : 'var(--white)',
+                  display:   'inline-block',
+                  fontStyle: i === hero.accentIndex ? 'italic' : 'normal',
+                  color:     i === hero.accentIndex ? 'var(--gold2)' : 'var(--white)',
                 }}
               >
                 {word}
@@ -226,23 +259,23 @@ export default function Hero() {
       </motion.div>
 
       {/* ══════════════════════════════════════════
-          STAT BAR (bottom)
+          STAT BAR
       ══════════════════════════════════════════ */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={mounted ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.9, delay: 1.8, ease: [0.22, 1, 0.36, 1] }}
         style={{
-          position:     'absolute',
-          bottom:       0,
-          left:         0,
-          right:        0,
-          display:      'grid',
+          position:            'absolute',
+          bottom:              0,
+          left:                0,
+          right:               0,
+          display:             'grid',
           gridTemplateColumns: `repeat(${hero.statBar.length}, 1fr)`,
-          borderTop:    '1px solid rgba(200,169,110,0.15)',
-          background:   'rgba(8,8,8,0.7)',
-          backdropFilter: 'blur(20px)',
-          zIndex:       4,
+          borderTop:           '1px solid rgba(200,169,110,0.15)',
+          background:          'rgba(8,8,8,0.7)',
+          backdropFilter:      'blur(20px)',
+          zIndex:              4,
         }}
       >
         {hero.statBar.map((stat, i) => (
@@ -260,12 +293,12 @@ export default function Hero() {
           >
             <div
               style={{
-                fontFamily:    'var(--serif)',
-                fontSize:      '36px',
-                fontWeight:    300,
-                color:         'var(--gold2)',
-                lineHeight:    1,
-                marginBottom:  '6px',
+                fontFamily:   'var(--serif)',
+                fontSize:     '36px',
+                fontWeight:   300,
+                color:        'var(--gold2)',
+                lineHeight:   1,
+                marginBottom: '6px',
               }}
             >
               {stat.num}
@@ -290,17 +323,17 @@ export default function Hero() {
       ══════════════════════════════════════════ */}
       <motion.div
         style={{
-          position:       'absolute',
-          bottom:         '140px',
-          left:           '50%',
-          transform:      'translateX(-50%)',
-          display:        'flex',
-          flexDirection:  'column',
-          alignItems:     'center',
-          gap:            '8px',
-          zIndex:         4,
-          opacity:        scrollOpacity,
-          pointerEvents:  'none',
+          position:      'absolute',
+          bottom:        '140px',
+          left:          '50%',
+          transform:     'translateX(-50%)',
+          display:       'flex',
+          flexDirection: 'column',
+          alignItems:    'center',
+          gap:           '8px',
+          zIndex:        4,
+          opacity:       scrollOpacity,
+          pointerEvents: 'none',
         }}
       >
         <span
@@ -326,13 +359,7 @@ export default function Hero() {
         />
       </motion.div>
 
-      {/* ══════════════════════════════════════════
-          RESPONSIVE
-      ══════════════════════════════════════════ */}
       <style>{`
-        @media (max-width: 1024px) {
-          #hero .hero-content-inner { padding: 0 40px !important; }
-        }
         @media (max-width: 640px) {
           #hero [style*="padding: 24px 32px"] {
             padding: 16px 20px !important;

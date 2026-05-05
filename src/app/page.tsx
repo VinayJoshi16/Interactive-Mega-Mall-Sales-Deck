@@ -10,6 +10,7 @@ import Dining   from '@/components/sections/Dining'
 import Entertainment from '@/components/sections/Entertainment'
 import Events   from '@/components/sections/Events'
 import CTA      from '@/components/sections/CTA'
+import ChatBot from '@/components/ui/ChatBot'
 
 export default function Page() {
   const cursorRef     = useRef<HTMLDivElement>(null)
@@ -128,30 +129,12 @@ export default function Page() {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [])
 
-  return (
+return (
     <>
-      {/* ── Custom cursor ──────────────────────────────────── */}
-      <div
-        ref={cursorRef}
-        className="cursor"
-        aria-hidden="true"
-      />
-      <div
-        ref={cursorRingRef}
-        className="cursor-ring"
-        aria-hidden="true"
-      />
-
-      {/* ── Fixed sidebar navigation ───────────────────────── */}
+      <div ref={cursorRef} className="cursor" aria-hidden="true" />
+      <div ref={cursorRingRef} className="cursor-ring" aria-hidden="true" />
       <Nav />
-
-      {/* ── Main content ───────────────────────────────────── */}
-      <main
-        style={{
-          marginLeft: 'var(--nav-w)',
-          position:   'relative',
-        }}
-      >
+      <main style={{ marginLeft: 'var(--nav-w)', position: 'relative' }}>
         <Hero />
         <WhyUs />
         <Retail />
@@ -159,9 +142,11 @@ export default function Page() {
         <Dining />
         <Entertainment />
         <Events />
-        {/* CTA.tsx renders both Sponsorship + Contact sections */}
         <CTA />
       </main>
+
+      {/* ── AI Leasing Assistant ── */}
+      <ChatBot />
     </>
   )
 }
