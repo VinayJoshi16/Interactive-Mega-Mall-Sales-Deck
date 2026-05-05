@@ -32,7 +32,6 @@ export default function CTAButton({
 }: CTAButtonProps) {
   const { padding, fontSize } = sizeMap[size]
 
-  // ─── Shared base styles ──────────────────────────────────
   const base: React.CSSProperties = {
     display:        'inline-flex',
     alignItems:     'center',
@@ -54,7 +53,6 @@ export default function CTAButton({
     transition:     'color 0.3s',
   }
 
-  // ─── Variant-specific styles ─────────────────────────────
   const variantStyles: Record<string, React.CSSProperties> = {
     primary: {
       background: 'var(--gold)',
@@ -66,22 +64,20 @@ export default function CTAButton({
       border:     '1px solid rgba(200, 169, 110, 0.4)',
     },
     ghost: {
-      background: 'transparent',
-      color:      'var(--gold-dim)',
-      border:     'none',
-      padding:    '0',
+      background:    'transparent',
+      color:         'var(--gold-dim)',
+      border:        'none',
+      padding:       '0',
       letterSpacing: '0.15em',
-      fontSize:   '9px',
+      fontSize:      '9px',
     },
   }
 
   const combined = { ...base, ...variantStyles[variant] }
 
-  // ─── Determine if external or internal link ──────────────
   const isExternal = href.startsWith('http') || href.startsWith('mailto')
   const isAnchor   = href.startsWith('#')
 
-  // ─── Hover animation overlay (primary only) ──────────────
   const Overlay = variant === 'primary' ? (
     <motion.span
       aria-hidden
@@ -102,15 +98,7 @@ export default function CTAButton({
       {Overlay}
       <span style={{ position: 'relative', zIndex: 1 }}>{label}</span>
       {arrow && variant !== 'ghost' && (
-        <span
-          style={{
-            position:   'relative',
-            zIndex:     1,
-            fontSize:   '14px',
-            lineHeight: 1,
-            transition: 'transform 0.3s var(--ease-out)',
-          }}
-        >
+        <span style={{ position: 'relative', zIndex: 1, fontSize: '14px', lineHeight: 1 }}>
           →
         </span>
       )}
@@ -120,7 +108,7 @@ export default function CTAButton({
     </>
   )
 
-  // ─── Ghost variant wrapper ───────────────────────────────
+  // ─── Ghost variant ───────────────────────────────────────
   if (variant === 'ghost') {
     return (
       <motion.div
@@ -130,7 +118,7 @@ export default function CTAButton({
         transition={{ delay, duration: 0.6 }}
       >
         {isAnchor || isExternal ? (
-          
+          <a
             href={href}
             style={combined}
             target={isExternal ? '_blank' : undefined}
@@ -148,19 +136,19 @@ export default function CTAButton({
     )
   }
 
-  // ─── Primary / Secondary wrapper ────────────────────────
+  // ─── Primary / Secondary ─────────────────────────────────
   const motionProps = {
-    initial:    { opacity: 0, y: 16 },
+    initial:     { opacity: 0, y: 16 },
     whileInView: { opacity: 1, y: 0 },
-    viewport:   { once: true } as const,
-    transition: { delay, duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
-    whileHover: variant === 'secondary'
+    viewport:    { once: true } as const,
+    transition:  { delay, duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
+    whileHover:  variant === 'secondary'
       ? { borderColor: 'var(--gold)', color: 'var(--gold2)' }
       : {},
   }
 
   const content = isAnchor || isExternal ? (
-    
+    <a
       href={href}
       style={combined}
       target={isExternal ? '_blank' : undefined}

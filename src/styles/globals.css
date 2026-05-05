@@ -249,6 +249,7 @@ body.cursor-hover .cursor-ring {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s;
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
 }
 .modal-overlay.open {

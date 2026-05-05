@@ -414,20 +414,19 @@ function ShortCard({ short }: ShortCardProps) {
         sizes="(max-width: 1024px) 100vw, 50vw"
       />
 
-      {/* Overlay */}
       <div
         style={{
-          position:   'absolute',
-          inset:      0,
-          background: 'linear-gradient(to top, rgba(8,8,8,0.8) 0%, transparent 50%)',
-          display:    'flex',
-          flexDirection: 'column',
+          position:       'absolute',
+          inset:          0,
+          background:     'linear-gradient(to top, rgba(8,8,8,0.8) 0%, transparent 50%)',
+          display:        'flex',
+          flexDirection:  'column',
           justifyContent: 'flex-end',
-          padding:    '16px 20px',
+          padding:        '16px 20px',
         }}
       >
         {/* Play button */}
-        
+        <a
           href={`https://www.youtube.com/shorts/${short.youtubeId}`}
           target="_blank"
           rel="noopener noreferrer"
@@ -446,7 +445,6 @@ function ShortCard({ short }: ShortCardProps) {
             alignItems:     'center',
             justifyContent: 'center',
             cursor:         'none',
-            transition:     'all 0.3s',
             textDecoration: 'none',
             color:          'var(--white)',
           }}
@@ -476,5 +474,90 @@ function ShortCard({ short }: ShortCardProps) {
         </div>
       </div>
     </div>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────
+// ATTRACTION CARD sub-component
+// ─────────────────────────────────────────────────────────────
+interface AttractionCardProps {
+  attr: {
+    emoji: string
+    title: string
+    body:  string
+    stat:  string
+  }
+  delay?: number
+}
+
+function AttractionCard({ attr, delay = 0 }: AttractionCardProps) {
+  return (
+    <motion.div
+      variants={fadeUp}
+      transition={{ delay }}
+      whileHover={{
+        background: 'var(--dark2)',
+        borderColor: 'rgba(200,169,110,0.18)',
+      }}
+      style={{
+        background:    'var(--dark)',
+        padding:       '28px 24px',
+        border:        '1px solid rgba(200,169,110,0.06)',
+        cursor:        'none',
+        display:       'flex',
+        flexDirection: 'column',
+        gap:           '12px',
+        transition:    'background 0.35s cubic-bezier(0.22,1,0.36,1), border-color 0.35s cubic-bezier(0.22,1,0.36,1)',
+      }}
+    >
+      <div
+        style={{
+          display:        'flex',
+          alignItems:     'flex-start',
+          justifyContent: 'space-between',
+          gap:            '12px',
+        }}
+      >
+        <span style={{ fontSize: '28px', lineHeight: 1 }} aria-hidden>
+          {attr.emoji}
+        </span>
+        <span
+          style={{
+            fontFamily:    'var(--mono)',
+            fontSize:      '9px',
+            letterSpacing: '0.12em',
+            textTransform: 'uppercase',
+            color:         'var(--gold)',
+            whiteSpace:    'nowrap',
+          }}
+        >
+          {attr.stat}
+        </span>
+      </div>
+
+      <div
+        style={{
+          fontFamily:   'var(--serif)',
+          fontSize:     'clamp(18px, 1.5vw, 22px)',
+          fontWeight:   300,
+          color:        'var(--white)',
+          lineHeight:   1.2,
+        }}
+      >
+        {attr.title}
+      </div>
+
+      <p
+        style={{
+          margin:     0,
+          fontSize:   '12px',
+          fontWeight: 300,
+          color:      'var(--gray)',
+          lineHeight: 1.65,
+        }}
+      >
+        {attr.body}
+      </p>
+    </motion.div>
   )
 }

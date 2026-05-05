@@ -12,11 +12,11 @@ export const PROPERTY = {
   established: 1992,
   website: "https://mallofamerica.com",
 
-  contact: {
-    leasing:      "leasing@mallofamerica.com",
-    partnerships: "partnerships@mallofamerica.com",
-    events:       "events@mallofamerica.com",
-    general:      "info@mallofamerica.com",
+  emails: {
+    leasing:       "leasing@mallofamerica.com",
+    partnerships:  "partnerships@mallofamerica.com",
+    events:        "events@mallofamerica.com",
+    general:       "info@mallofamerica.com",
   },
 
   
