@@ -8,7 +8,6 @@ import { PROPERTY } from '@/lib/data'
 import CTAButton from '@/components/ui/CTAButton'
 
 export default function Hero() {
-  const sectionRef            = useRef<HTMLElement>(null)
   const [mounted, setMounted] = useState(false)
   const [videoActive, setVideoActive] = useState(false)
   const { scrollY }           = useScroll()
@@ -34,7 +33,6 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      ref={sectionRef}
       style={{
         position:   'relative',
         minHeight:  '100svh',
@@ -61,6 +59,8 @@ export default function Hero() {
             src={images.hero}
             alt="Mall of America"
             fill
+            placeholder="blur"
+            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAIAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABgUEA/8QAIhAAAQQCAgMBAAAAAAAAAAAAAQIDBBEhBRIxQWH/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8Amuz1pi3udBDAcksNqcBIPBzwM+KKKAOquHJSlIBAAGABRRQB/9k="
             priority
             sizes="100vw"
             style={{

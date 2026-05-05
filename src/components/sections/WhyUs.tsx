@@ -219,6 +219,8 @@ export default function WhyUs() {
                 src={images.hero}
                 alt="Mall of America interior with Nickelodeon Universe"
                 fill
+                placeholder="blur"
+                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
                 style={{ objectFit: 'cover', objectPosition: 'center top' }}
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
