@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { fadeIn, viewportConfig } from '@/lib/animations'
+import { fadeIn, viewportConfig } from '../../lib/animations'
 
 interface VideoPlayerProps {
   youtubeId: string

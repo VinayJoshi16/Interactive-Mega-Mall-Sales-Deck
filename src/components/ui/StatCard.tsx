@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
-import { fadeUp, viewportConfig } from '@/lib/animations'
+import { fadeUp, viewportConfig } from '../../lib/animations'
 
 interface StatCardProps {
   num: string        // e.g. "40M+", "$87K", "520+"

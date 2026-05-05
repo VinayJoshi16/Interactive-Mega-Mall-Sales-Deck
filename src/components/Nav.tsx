@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { PROPERTY } from '@/lib/data'
+import { PROPERTY } from '../lib/data'
 
 export default function Nav() {
   const [activeSection, setActiveSection] = useState('hero')
