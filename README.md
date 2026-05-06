@@ -65,37 +65,46 @@ npm run dev
 
 ---
 
-## Project Structure
+## 📁 Project Structure
+```bash
 src/
-app/
-page.tsx              # Main shell — cursor, intro, lazy sections
-layout.tsx            # Fonts, metadata, OG tags
-api/chat/route.ts     # Groq AI chatbot API route
-components/
-Nav.tsx               # Fixed sidebar dot navigation
-IntroAnimation.tsx    # Cinematic intro with particle effects
-sections/
-Hero.tsx            # Full-screen video hero
-WhyUs.tsx           # Demographics, stats, image stack
-Retail.tsx          # Tenant marquee, leasing categories
-Luxury.tsx          # Full-bleed image, brand strip
-Dining.tsx          # Two-column layout, highlights
-Entertainment.tsx   # VideoPlayer, YouTube shorts, attractions
-Events.tsx          # Venue cards, past events, booking CTA
-CTA.tsx             # Sponsorship tiers + contact form
-ui/
-StatCard.tsx        # Animated count-up stat card
-VideoPlayer.tsx     # YouTube embed with poster facade
-CTAButton.tsx       # Primary / secondary / ghost variants
-ChatBot.tsx         # AI leasing assistant chat panel
-lib/
-data.ts               # All content, stats, copy — single source of truth
-animations.ts         # Framer Motion variants — shared across sections
-styles/
-globals.css           # CSS variables, shared primitives, reveal animations
-public/
-images/                 # AI-generated + real property images
-intro/                # Cinematic intro sequence images
+├── app/
+│   ├── page.tsx              # Main shell — cursor, intro, lazy sections
+│   ├── layout.tsx            # Fonts, metadata, OG tags
+│   └── api/
+│       └── chat/
+│           └── route.ts      # Groq AI chatbot API route
+│
+├── components/
+│   ├── Nav.tsx               # Fixed sidebar dot navigation
+│   ├── IntroAnimation.tsx    # Cinematic intro with particle effects
+│   │
+│   ├── sections/
+│   │   ├── Hero.tsx          # Full-screen video hero
+│   │   ├── WhyUs.tsx         # Demographics, stats, image stack
+│   │   ├── Retail.tsx        # Tenant marquee, leasing categories
+│   │   ├── Luxury.tsx        # Full-bleed image, brand strip
+│   │   ├── Dining.tsx        # Two-column layout, highlights
+│   │   ├── Entertainment.tsx # VideoPlayer, YouTube shorts, attractions
+│   │   ├── Events.tsx        # Venue cards, past events, booking CTA
+│   │   └── CTA.tsx           # Sponsorship tiers + contact form
+│   │
+│   └── ui/
+│       ├── StatCard.tsx      # Animated count-up stat card
+│       ├── VideoPlayer.tsx   # YouTube embed with poster facade
+│       ├── CTAButton.tsx     # Primary / secondary / ghost variants
+│       └── ChatBot.tsx       # AI leasing assistant chat panel
+│
+├── lib/
+│   ├── data.ts               # All content, stats, copy — single source of truth
+│   └── animations.ts         # Framer Motion variants — shared across sections
+│
+├── styles/
+│   └── globals.css           # CSS variables, shared primitives, reveal animations
+│
+└── public/
+    ├── images/               # AI-generated + real property images
+    └── intro/                # Cinematic intro sequence images
 ---
 
 ## Sections Covered
@@ -192,3 +201,4 @@ Key optimizations:
 
 - **Live URL:** https://interactive-mega-mall-sales-deck.vercel.app/
 - **GitHub:** https://github.com/VinayJoshi16/Interactive-Mega-Mall-Sales-Deck
+- **Contact:** vinay.joshi1608@gmail.com
