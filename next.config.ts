@@ -5,9 +5,6 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  experimental: {
-    browsersListForSwc: true,  
-  },
   images: {
     formats: ['image/webp', 'image/avif'],
     minimumCacheTTL: 31536000,
@@ -19,23 +16,14 @@ const nextConfig: NextConfig = {
     {
       source: '/(.*)',
       headers: [
-        {
-          key:   'X-Content-Type-Options',
-          value: 'nosniff',
-        },
-        {
-          key:   'X-Frame-Options',
-          value: 'DENY',
-        },
+        { key: 'X-Content-Type-Options', value: 'nosniff' },
+        { key: 'X-Frame-Options',        value: 'DENY'    },
       ],
     },
     {
       source: '/images/(.*)',
       headers: [
-        {
-          key:   'Cache-Control',
-          value: 'public, max-age=31536000, immutable',
-        },
+        { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
       ],
     },
   ],

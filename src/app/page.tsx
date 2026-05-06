@@ -104,12 +104,12 @@ export default function Page() {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [])
 
-  return (
+return (
   <>
     <div ref={cursorRef}     className="cursor"      aria-hidden="true" />
     <div ref={cursorRingRef} className="cursor-ring" aria-hidden="true" />
     <Nav />
-    <LazyMotion features={domAnimation}>
+    <LazyMotion features={domAnimation} strict>
       <main style={{ marginLeft: 'var(--nav-w)', position: 'relative' }}>
         <Hero />
         <WhyUs />
