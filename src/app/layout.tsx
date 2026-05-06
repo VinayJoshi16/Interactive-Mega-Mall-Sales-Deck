@@ -1,5 +1,28 @@
 import type { Metadata } from 'next'
+import { Cormorant_Garamond, DM_Sans, DM_Mono } from 'next/font/google'
 import '../styles/globals.css'
+
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['300', '400', '600', '700'],
+  style: ['normal', 'italic'],
+  variable: '--serif',
+  display: 'swap',
+})
+
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  weight: ['200', '300', '400', '500'],
+  variable: '--sans',
+  display: 'swap',
+})
+
+const dmMono = DM_Mono({
+  subsets: ['latin'],
+  weight: ['300', '400'],
+  variable: '--mono',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://your-project.vercel.app'),
@@ -39,23 +62,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${cormorant.variable} ${dmSans.variable} ${dmMono.variable}`}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-  rel="preconnect"
-  href="https://fonts.googleapis.com"
-/>
-<link
-  rel="preconnect"
-  href="https://fonts.gstatic.com"
-  crossOrigin="anonymous"
-/>
-<link
-  href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@300;400&display=optional"
-  rel="stylesheet"
-/>
         <link rel="preconnect" href="https://www.youtube.com" />
         <link rel="preconnect" href="https://www.youtube-nocookie.com" />
         <meta name="theme-color" content="#080808" />

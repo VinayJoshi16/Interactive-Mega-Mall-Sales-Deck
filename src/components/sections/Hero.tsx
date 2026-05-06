@@ -2,7 +2,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { m, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import { PROPERTY } from '@/lib/data'
 import CTAButton from '@/components/ui/CTAButton'
@@ -15,18 +15,14 @@ export default function Hero() {
   const scrollOpacity = useTransform(scrollY, [0, 200], [1, 0])
   const contentY      = useTransform(scrollY, [0, 600], [0, 120])
 
-  useEffect(() => {
-    const t = setTimeout(() => setMounted(true), 100)
-    return () => clearTimeout(t)
-  }, [])
+
 
   // ─── Load video only after page is fully interactive ─────
   useEffect(() => {
-    if (!mounted) return
     // Delay iframe load by 3s — lets LCP image render first
     const t = setTimeout(() => setVideoActive(true), 3000)
     return () => clearTimeout(t)
-  }, [mounted])
+  }, [])
 
   const { hero, videos, images } = PROPERTY
 
@@ -72,7 +68,7 @@ export default function Hero() {
 
         {/* YouTube iframe — only loads after 3s delay */}
         {videoActive && (
-          <m.div
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1.2 }}
@@ -100,7 +96,7 @@ export default function Hero() {
                 border:        'none',
               }}
             />
-          </m.div>
+          </motion.div>
         )}
       </div>
 
@@ -133,7 +129,7 @@ export default function Hero() {
       {/* ══════════════════════════════════════════
           HERO CONTENT
       ══════════════════════════════════════════ */}
-      <m.div
+      <motion.div
         style={{
           position: 'relative',
           zIndex:   3,
@@ -144,9 +140,9 @@ export default function Hero() {
         }}
       >
         {/* Eyebrow */}
-        <m.div
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={mounted ? { opacity: 1, y: 0 } : {}}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           style={{
             fontFamily:    'var(--mono)',
@@ -160,9 +156,9 @@ export default function Hero() {
             gap:           '16px',
           }}
         >
-          <m.span
+          <motion.span
             initial={{ scaleX: 0 }}
-            animate={mounted ? { scaleX: 1 } : {}}
+            animate={{ scaleX: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             style={{
               display:         'block',
@@ -174,7 +170,7 @@ export default function Hero() {
             }}
           />
           {hero.eyebrow}
-        </m.div>
+        </motion.div>
 
         {/* Headline */}
         <h1
@@ -197,9 +193,9 @@ export default function Hero() {
                 marginRight: i < hero.words.length - 1 ? '0.25em' : 0,
               }}
             >
-              <m.span
+              <motion.span
                 initial={{ y: '105%', opacity: 0 }}
-                animate={mounted ? { y: '0%', opacity: 1 } : {}}
+                animate={{ y: '0%', opacity: 1 }}
                 transition={{
                   duration: 0.9,
                   delay:    0.6 + i * 0.15,
@@ -212,15 +208,15 @@ export default function Hero() {
                 }}
               >
                 {word}
-              </m.span>
+              </motion.span>
             </span>
           ))}
         </h1>
 
         {/* Subheadline */}
-        <m.p
+        <motion.p
           initial={{ opacity: 0, y: 20 }}
-          animate={mounted ? { opacity: 1, y: 0 } : {}}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 1.2, ease: [0.22, 1, 0.36, 1] }}
           style={{
             fontSize:     '15px',
@@ -232,12 +228,12 @@ export default function Hero() {
           }}
         >
           {hero.subheadline}
-        </m.p>
+        </motion.p>
 
         {/* CTAs */}
-        <m.div
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={mounted ? { opacity: 1, y: 0 } : {}}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 1.5, ease: [0.22, 1, 0.36, 1] }}
           style={{
             display:    'flex',
@@ -255,15 +251,15 @@ export default function Hero() {
               arrow={cta.variant === 'primary'}
             />
           ))}
-        </m.div>
-      </m.div>
+        </motion.div>
+      </motion.div>
 
       {/* ══════════════════════════════════════════
           STAT BAR
       ══════════════════════════════════════════ */}
-      <m.div
+      <motion.div
         initial={{ opacity: 0, y: 30 }}
-        animate={mounted ? { opacity: 1, y: 0 } : {}}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, delay: 1.8, ease: [0.22, 1, 0.36, 1] }}
         style={{
           position:            'absolute',
@@ -280,10 +276,10 @@ export default function Hero() {
         }}
       >
         {hero.statBar.map((stat, i) => (
-          <m.div
+          <motion.div
             key={stat.label}
             initial={{ opacity: 0, y: 10 }}
-            animate={mounted ? { opacity: 1, y: 0 } : {}}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.9 + i * 0.08 }}
             style={{
               padding:     '24px 32px',
@@ -315,14 +311,14 @@ export default function Hero() {
             >
               {stat.label}
             </div>
-          </m.div>
+          </motion.div>
         ))}
-      </m.div>
+      </motion.div>
 
       {/* ══════════════════════════════════════════
           SCROLL INDICATOR
       ══════════════════════════════════════════ */}
-      <m.div
+      <motion.div
         style={{
           position:      'absolute',
           bottom:        '140px',
@@ -348,7 +344,7 @@ export default function Hero() {
         >
           Explore
         </span>
-        <m.div
+        <motion.div
           animate={{ scaleY: [0, 1, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
           style={{
@@ -358,7 +354,7 @@ export default function Hero() {
             transformOrigin: 'top',
           }}
         />
-      </m.div>
+      </motion.div>
 
       <style>{`
         @media (max-width: 640px) {

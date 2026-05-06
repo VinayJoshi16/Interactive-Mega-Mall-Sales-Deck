@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useRef, useState} from 'react'
-import { m, AnimatePresence } from 'framer-motion'
+import Image from 'next/image'
+import { motion as m, AnimatePresence } from 'framer-motion'
 
 interface IntroAnimationProps {
   onComplete: () => void
@@ -112,22 +113,22 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
   // ─── Phase sequencing ───────────────────────────────────────
   useEffect(() => {
     const t: ReturnType<typeof setTimeout>[] = []
-    // Total timeline: 10s
-    // 0 → 1: entry + image fly-in
+    // Total timeline: ~9.5s
+    // 0 → 1: entry + image fly-in (reduced initial wait)
     // 2: center title
     // 3: long cinematic converge
     // 4: hero reveal
     // 5: exit fade
-    t.push(setTimeout(() => setPhase(1), 650))
-    t.push(setTimeout(() => setPhase(2), 2600))
-    t.push(setTimeout(() => setPhase(3), 5400))
-    t.push(setTimeout(() => setPhase(4), 8000))
-    t.push(setTimeout(() => setPhase(5), 9300))
+    t.push(setTimeout(() => setPhase(1), 150))
+    t.push(setTimeout(() => setPhase(2), 2100))
+    t.push(setTimeout(() => setPhase(3), 4900))
+    t.push(setTimeout(() => setPhase(4), 7500))
+    t.push(setTimeout(() => setPhase(5), 8800))
     t.push(setTimeout(() => {
       if (completedRef.current) return
       completedRef.current = true
       onComplete()
-    }, 10000))
+    }, 9500))
     sequenceTimersRef.current = t
     return () => {
       t.forEach(clearTimeout)
@@ -163,6 +164,8 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
       '#FF6B35', '#F7931E', '#FFF3B0',
     ]
 
+    let isDrawing = false
+
     function spawnParticles(x: number, y: number, vx: number, vy: number) {
       const speed = Math.sqrt(vx * vx + vy * vy)
       const count = Math.min(Math.floor(speed * 0.6), 5)
@@ -180,6 +183,11 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
           trail: [],
         })
       }
+      
+      if (!isDrawing) {
+        isDrawing = true
+        drawFrame()
+      }
     }
 
     function drawFrame() {
@@ -187,6 +195,11 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
       particlesRef.current = particlesRef.current.filter(p => p.life > 0)
+      
+      if (particlesRef.current.length === 0) {
+        isDrawing = false
+        return
+      }
 
       for (const p of particlesRef.current) {
         p.trail.push({ x: p.x, y: p.y })
@@ -223,8 +236,6 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
 
       animFrameRef.current = requestAnimationFrame(drawFrame)
     }
-
-    drawFrame()
 
     function onMouseMove(e: MouseEvent) {
       const vx = e.clientX - lastMouseRef.current.x
@@ -370,14 +381,16 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
                   overflow:     'hidden',
                   borderRadius: '4px',
                   boxShadow:    '0 20px 60px rgba(0,0,0,0.8), 0 0 0 1px rgba(200,169,110,0.12)',
+                  position:     'relative',
                 }}
               >
-                <img
+                <Image
                   src={img.src}
                   alt={img.label}
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 50vw, 300px"
                   style={{
-                    width:     '100%',
-                    height:    '100%',
                     objectFit: 'cover',
                     display:   'block',
                   }}
@@ -541,12 +554,13 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
                   boxShadow:    '0 40px 120px rgba(0,0,0,0.9), 0 0 0 1px rgba(200,169,110,0.3), 0 0 80px rgba(200,169,110,0.15)',
                 }}
               >
-                <img
+                <Image
                   src="/images/hero.webp"
                   alt="Mall of America"
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 80vw, 700px"
                   style={{
-                    width:      '100%',
-                    height:     '100%',
                     objectFit:  'cover',
                     animation:  'heroZoom 7.5s ease-out forwards',
                   }}

@@ -63,8 +63,6 @@ export default function Page() {
       ring!.style.top  = `${ringY.current}px`
       rafRef.current = requestAnimationFrame(animate)
     }
-    function onMouseEnter() { document.body.classList.add('cursor-hover')    }
-    function onMouseLeave() { document.body.classList.remove('cursor-hover') }
     function onMouseOut(e: MouseEvent) {
       if (!e.relatedTarget) {
         cursor!.style.opacity = '0'
@@ -75,29 +73,34 @@ export default function Page() {
       cursor!.style.opacity = '1'
       ring!.style.opacity   = '1'
     }
+
+    function onMouseOverDelegate(e: MouseEvent) {
+      const target = e.target as HTMLElement
+      if (target.closest?.('a, button, [role="button"], input, select, textarea')) {
+        document.body.classList.add('cursor-hover')
+      }
+    }
+    function onMouseOutDelegate(e: MouseEvent) {
+      const target = e.target as HTMLElement
+      if (target.closest?.('a, button, [role="button"], input, select, textarea')) {
+        document.body.classList.remove('cursor-hover')
+      }
+    }
+
     document.addEventListener('mousemove', onMouseMove)
     document.addEventListener('mouseout',  onMouseOut)
     document.addEventListener('mouseover', onMouseIn)
+    document.addEventListener('mouseover', onMouseOverDelegate)
+    document.addEventListener('mouseout',  onMouseOutDelegate)
     rafRef.current = requestAnimationFrame(animate)
-
-    function attachHoverListeners() {
-      document.querySelectorAll(
-        'a, button, [role="button"], input, select, textarea'
-      ).forEach(el => {
-        el.addEventListener('mouseenter', onMouseEnter)
-        el.addEventListener('mouseleave', onMouseLeave)
-      })
-    }
-    attachHoverListeners()
-    const obs = new MutationObserver(attachHoverListeners)
-    obs.observe(document.body, { childList: true, subtree: true })
 
     return () => {
       document.removeEventListener('mousemove', onMouseMove)
       document.removeEventListener('mouseout',  onMouseOut)
       document.removeEventListener('mouseover', onMouseIn)
+      document.removeEventListener('mouseover', onMouseOverDelegate)
+      document.removeEventListener('mouseout',  onMouseOutDelegate)
       cancelAnimationFrame(rafRef.current)
-      obs.disconnect()
     }
   }, [])
 
@@ -123,7 +126,7 @@ export default function Page() {
   }, [])
 
   return (
-    <LazyMotion features={domAnimation} strict>
+    <LazyMotion features={domAnimation}>
       {/* Custom cursor */}
       <div ref={cursorRef} className="cursor" aria-hidden="true" />
       <div ref={cursorRingRef} className="cursor-ring" aria-hidden="true" />
