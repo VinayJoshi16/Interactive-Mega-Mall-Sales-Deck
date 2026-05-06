@@ -6,7 +6,6 @@ import { LazyMotion, domAnimation } from 'framer-motion'
 import Nav  from '@/components/Nav'
 import Hero from '@/components/sections/Hero'
 import IntroAnimation from '@/components/IntroAnimation'
-import ChatBot from '@/components/ui/ChatBot'
 
 const WhyUs         = dynamic(() => import('@/components/sections/WhyUs'))
 const Retail        = dynamic(() => import('@/components/sections/Retail'))
@@ -15,6 +14,10 @@ const Dining        = dynamic(() => import('@/components/sections/Dining'))
 const Entertainment = dynamic(() => import('@/components/sections/Entertainment'))
 const Events        = dynamic(() => import('@/components/sections/Events'))
 const CTA           = dynamic(() => import('@/components/sections/CTA'))
+const ChatBot       = dynamic(() => import('@/components/ui/ChatBot'), {
+  ssr: false,
+  loading: () => null,
+})
 
 export default function Page() {
   const [introComplete, setIntroComplete] = useState(false)
@@ -28,6 +31,18 @@ export default function Page() {
 
   const handleIntroComplete = useCallback(() => {
     setIntroComplete(true)
+  }, [])
+
+  // Skip heavy cinematic intro on small screens or for users
+  // who prefer reduced motion — improves LCP on mobile / audits
+  useEffect(() => {
+    const mq = window.matchMedia?.('(prefers-reduced-motion: reduce)')
+    const prefersReduced = mq?.matches
+    const isSmallScreen  = window.innerWidth < 768
+
+    if (prefersReduced || isSmallScreen) {
+      setIntroComplete(true)
+    }
   }, [])
 
   useEffect(() => {
@@ -130,7 +145,7 @@ export default function Page() {
         <CTA />
       </main>
 
-      <ChatBot />
+      {introComplete && <ChatBot />}
     </LazyMotion>
   )
 }
