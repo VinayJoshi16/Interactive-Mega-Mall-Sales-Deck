@@ -112,11 +112,17 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
   // ─── Phase sequencing ───────────────────────────────────────
   useEffect(() => {
     const t: ReturnType<typeof setTimeout>[] = []
-    t.push(setTimeout(() => setPhase(1), 400))
-    t.push(setTimeout(() => setPhase(2), 2200))
-    t.push(setTimeout(() => setPhase(3), 4700))
-    t.push(setTimeout(() => setPhase(4), 7000))
-    t.push(setTimeout(() => setPhase(5), 9000))
+    // Total timeline: 10s
+    // 0 → 1: entry + image fly-in
+    // 2: center title
+    // 3: long cinematic converge
+    // 4: hero reveal
+    // 5: exit fade
+    t.push(setTimeout(() => setPhase(1), 650))
+    t.push(setTimeout(() => setPhase(2), 2600))
+    t.push(setTimeout(() => setPhase(3), 5400))
+    t.push(setTimeout(() => setPhase(4), 8000))
+    t.push(setTimeout(() => setPhase(5), 9300))
     t.push(setTimeout(() => {
       if (completedRef.current) return
       completedRef.current = true
@@ -288,9 +294,10 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
       {!exiting && (
         <m.div
           key="intro"
-          initial={{ opacity: 1 }}
+          initial={{ opacity: 0, scale: 1.015, filter: 'blur(10px)' }}
+          animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
           onClick={beginExit}
           style={{
             position:       'fixed',
@@ -345,9 +352,9 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
               }}
               animate={getImageAnimate(img)}
               transition={{
-                duration: converging ? 1.8 : 2.4,
+                duration: converging ? 3.2 : 2.8,
                 delay:    converging ? 0 : i * 0.12,
-                ease:     [0.22, 1, 0.36, 1],
+                ease:     converging ? [0.16, 1, 0.3, 1] : [0.22, 1, 0.36, 1],
               }}
               style={{
                 position: 'absolute',
