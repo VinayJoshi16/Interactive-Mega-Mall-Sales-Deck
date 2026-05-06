@@ -94,6 +94,9 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
   const [phase, setPhase] = useState(0)
   const canvasRef         = useRef<HTMLCanvasElement>(null)
   const animFrameRef      = useRef<number>(0)
+  const sequenceTimersRef = useRef<ReturnType<typeof setTimeout>[]>([])
+  const exitTimerRef      = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const completedRef      = useRef(false)
   const particleIdRef     = useRef(0)
   const lastMouseRef      = useRef({ x: 0, y: 0 })
   const particlesRef      = useRef<{
@@ -109,14 +112,30 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
   // ─── Phase sequencing ───────────────────────────────────────
   useEffect(() => {
     const t: ReturnType<typeof setTimeout>[] = []
-    t.push(setTimeout(() => setPhase(1), 200))
-    t.push(setTimeout(() => setPhase(2), 1200))
-    t.push(setTimeout(() => setPhase(3), 2800))
-    t.push(setTimeout(() => setPhase(4), 3800))
-    t.push(setTimeout(() => setPhase(5), 5200))
-    t.push(setTimeout(() => onComplete(), 5800))
-    return () => t.forEach(clearTimeout)
+    t.push(setTimeout(() => setPhase(1), 400))
+    t.push(setTimeout(() => setPhase(2), 2200))
+    t.push(setTimeout(() => setPhase(3), 4700))
+    t.push(setTimeout(() => setPhase(4), 7000))
+    t.push(setTimeout(() => setPhase(5), 9000))
+    t.push(setTimeout(() => {
+      if (completedRef.current) return
+      completedRef.current = true
+      onComplete()
+    }, 10000))
+    sequenceTimersRef.current = t
+    return () => {
+      t.forEach(clearTimeout)
+      if (exitTimerRef.current) clearTimeout(exitTimerRef.current)
+    }
   }, [onComplete])
+
+  function beginExit() {
+    if (completedRef.current) return
+    completedRef.current = true
+    sequenceTimersRef.current.forEach(clearTimeout)
+    setPhase(5)
+    exitTimerRef.current = setTimeout(() => onComplete(), 1200)
+  }
 
   // ─── Particle canvas ────────────────────────────────────────
   useEffect(() => {
@@ -271,7 +290,8 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
           key="intro"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          onClick={beginExit}
           style={{
             position:       'fixed',
             inset:          0,
@@ -300,7 +320,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
               opacity: heroVisible ? 0.7 : 0.25,
               scale:   heroVisible ? 1.5 : 1,
             }}
-            transition={{ duration: 1.5 }}
+            transition={{ duration: 2.8 }}
             style={{
               position:      'absolute',
               width:         '700px',
@@ -325,8 +345,8 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
               }}
               animate={getImageAnimate(img)}
               transition={{
-                duration: converging ? 1.0 : 1.4,
-                delay:    converging ? 0 : i * 0.07,
+                duration: converging ? 1.8 : 2.4,
+                delay:    converging ? 0 : i * 0.12,
                 ease:     [0.22, 1, 0.36, 1],
               }}
               style={{
@@ -374,7 +394,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
                 initial={{ opacity: 0, scale: 0.85 }}
                 animate={{ opacity: 1,  scale: 1    }}
                 exit={{    opacity: 0,  scale: 1.1, filter: 'blur(12px)' }}
-                transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
                 style={{
                   position:       'absolute',
                   zIndex:         20,
@@ -386,7 +406,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
                 <m.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0  }}
-                  transition={{ delay: 0.3, duration: 0.8 }}
+                  transition={{ delay: 0.45, duration: 1.2 }}
                   style={{
                     fontFamily:     'var(--mono)',
                     fontSize:       '10px',
@@ -403,7 +423,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
                   <m.span
                     initial={{ scaleX: 0 }}
                     animate={{ scaleX: 1 }}
-                    transition={{ delay: 0.5, duration: 0.6 }}
+                    transition={{ delay: 0.7, duration: 1.0 }}
                     style={{
                       display:         'block',
                       width:           '28px',
@@ -416,7 +436,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
                   <m.span
                     initial={{ scaleX: 0 }}
                     animate={{ scaleX: 1 }}
-                    transition={{ delay: 0.5, duration: 0.6 }}
+                    transition={{ delay: 0.7, duration: 1.0 }}
                     style={{
                       display:         'block',
                       width:           '28px',
@@ -453,7 +473,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
                 <m.div
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6, duration: 0.8 }}
+                  transition={{ delay: 0.9, duration: 1.2 }}
                   style={{
                     fontFamily:    'var(--mono)',
                     fontSize:      '10px',
@@ -473,8 +493,8 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
                     initial={{ scale: 0.5, opacity: 0.6 }}
                     animate={{ scale: 2 + ring * 0.3, opacity: 0 }}
                     transition={{
-                      duration:   2.8,
-                      delay:      ring * 0.5,
+                      duration:   3.8,
+                      delay:      ring * 0.7,
                       repeat:     Infinity,
                       ease:       'easeOut',
                     }}
@@ -503,7 +523,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
                 initial={{ opacity: 0, scale: 0.55, filter: 'blur(24px)' }}
                 animate={{ opacity: 1, scale: 1,    filter: 'blur(0px)'  }}
                 exit={{    opacity: 0, scale: 1.2,  filter: 'blur(20px)' }}
-                transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
                 style={{
                   position:     'absolute',
                   zIndex:       30,
@@ -521,7 +541,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
                     width:      '100%',
                     height:     '100%',
                     objectFit:  'cover',
-                    animation:  'heroZoom 5s ease-out forwards',
+                    animation:  'heroZoom 7.5s ease-out forwards',
                   }}
                 />
                 <div
@@ -534,7 +554,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
                 <m.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0  }}
-                  transition={{ delay: 0.5, duration: 0.8 }}
+                  transition={{ delay: 0.7, duration: 1.1 }}
                   style={{
                     position: 'absolute',
                     bottom:   '36px',
@@ -579,7 +599,10 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
           <m.button
             initial={{ opacity: 0 }}
             animate={{ opacity: phase >= 2 ? 0.8 : 0 }}
-            onClick={onComplete}
+            onClick={e => {
+              e.stopPropagation()
+              beginExit()
+            }}
             style={{
               position:      'fixed',
               bottom:        '36px',
@@ -610,8 +633,8 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
           {/* Progress bar */}
           <m.div
             initial={{ width: '0%' }}
-            animate={{ width: `${Math.min((phase / 4) * 100, 100)}%` }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
+            animate={{ width: `${Math.min((phase / 5) * 100, 100)}%` }}
+            transition={{ duration: 1.2, ease: 'easeOut' }}
             style={{
               position:   'fixed',
               bottom:     0,
