@@ -1,22 +1,23 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
+import { LazyMotion, domAnimation } from 'framer-motion'
 import Nav  from '@/components/Nav'
 import Hero from '@/components/sections/Hero'
+import IntroAnimation from '@/components/IntroAnimation'
 import ChatBot from '@/components/ui/ChatBot'
-import { LazyMotion, domAnimation } from 'framer-motion'
 
-// Lazy load everything below the fold
-const WhyUs        = dynamic(() => import('@/components/sections/WhyUs'))
-const Retail       = dynamic(() => import('@/components/sections/Retail'))
-const Luxury       = dynamic(() => import('@/components/sections/Luxury'))
-const Dining       = dynamic(() => import('@/components/sections/Dining'))
+const WhyUs         = dynamic(() => import('@/components/sections/WhyUs'))
+const Retail        = dynamic(() => import('@/components/sections/Retail'))
+const Luxury        = dynamic(() => import('@/components/sections/Luxury'))
+const Dining        = dynamic(() => import('@/components/sections/Dining'))
 const Entertainment = dynamic(() => import('@/components/sections/Entertainment'))
-const Events       = dynamic(() => import('@/components/sections/Events'))
-const CTA          = dynamic(() => import('@/components/sections/CTA'))
+const Events        = dynamic(() => import('@/components/sections/Events'))
+const CTA           = dynamic(() => import('@/components/sections/CTA'))
 
 export default function Page() {
+  const [introComplete, setIntroComplete] = useState(false)
   const cursorRef     = useRef<HTMLDivElement>(null)
   const cursorRingRef = useRef<HTMLDivElement>(null)
   const mouseX        = useRef(0)
@@ -24,6 +25,10 @@ export default function Page() {
   const ringX         = useRef(0)
   const ringY         = useRef(0)
   const rafRef        = useRef<number>(0)
+
+  const handleIntroComplete = useCallback(() => {
+    setIntroComplete(true)
+  }, [])
 
   useEffect(() => {
     const cursor = cursorRef.current
@@ -55,7 +60,6 @@ export default function Page() {
       cursor!.style.opacity = '1'
       ring!.style.opacity   = '1'
     }
-
     document.addEventListener('mousemove', onMouseMove)
     document.addEventListener('mouseout',  onMouseOut)
     document.addEventListener('mouseover', onMouseIn)
@@ -70,7 +74,6 @@ export default function Page() {
       })
     }
     attachHoverListeners()
-
     const obs = new MutationObserver(attachHoverListeners)
     obs.observe(document.body, { childList: true, subtree: true })
 
@@ -104,12 +107,18 @@ export default function Page() {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [])
 
-return (
-  <>
-    <div ref={cursorRef}     className="cursor"      aria-hidden="true" />
-    <div ref={cursorRingRef} className="cursor-ring" aria-hidden="true" />
-    <Nav />
+  return (
     <LazyMotion features={domAnimation} strict>
+      {/* Custom cursor */}
+      <div ref={cursorRef} className="cursor" aria-hidden="true" />
+      <div ref={cursorRingRef} className="cursor-ring" aria-hidden="true" />
+
+      {/* Cinematic intro */}
+      {!introComplete && <IntroAnimation onComplete={handleIntroComplete} />}
+
+      {/* Main content */}
+      <Nav />
+
       <main style={{ marginLeft: 'var(--nav-w)', position: 'relative' }}>
         <Hero />
         <WhyUs />
@@ -120,8 +129,8 @@ return (
         <Events />
         <CTA />
       </main>
+
+      <ChatBot />
     </LazyMotion>
-    <ChatBot />
-  </>
-)
+  )
 }
