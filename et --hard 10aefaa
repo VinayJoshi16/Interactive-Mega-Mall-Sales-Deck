@@ -1,0 +1,30 @@
+[33m9f8eeb4[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m perf: next/font eliminates render blocking, event delegation fixes TBT, next/image + RAF guard in intro
+[33mc466905[m perf: next/font eliminates render blocking, event delegation fixes TBT, next/image + RAF guard in intro
+[33m10aefaa[m Optimize the website performance
+[33m87e81cd[m Fix : animation
+[33m666e9df[m Fix : animation
+[33m06ba884[m fix : config
+[33mecfd947[m feat: cinematic intro animation with particle cursor effects
+[33m8e3ca83[m fix: remove invalid browsersListForSwc from next.config
+[33m4b34907[m perf: LazyMotion, preload hero, fix CLS stat bar, iframe allow attrs
+[33m5faabed[m perf: sharp, lazy sections, blur placeholders, font-display optional
+[33m1cc0a57[m perf: add sharp for image optimization
+[33m6700e3b[m perf: lazy iframes, blur placeholders, preload hero, font-display swap
+[33mb8efc25[m fix: add metadataBase for OG image resolution
+[33m1a601a2[m version update
+[33ma51d569[m fix: remove display prop from motion.span, fix eslint config
+[33mc08cae1[m fix build issue
+[33mf0a9a14[m fix: eslint
+[33m2c44eff[m fix:  next config
+[33mddee044[m error correction
+[33m3390435[m update
+[33mb76e85d[m error correction
+[33m6842c2b[m components
+[33mac6168f[m Nav Bar
+[33m059a8aa[m ui section complete
+[33m92151b1[m .
+[33mf71db61[m .
+[33m7229ff7[m write global css
+[33m1e9245a[m Update README with project details and remove conflicts
+[33mb372ec4[m Initial project upload
+[33mafccf77[m Initial commit
