@@ -2,9 +2,6 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   images: {
     formats: ['image/webp', 'image/avif'],
     minimumCacheTTL: 31536000,
